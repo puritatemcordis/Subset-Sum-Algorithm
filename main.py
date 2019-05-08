@@ -79,18 +79,22 @@ def dynamic(vector, val):
 
                             # checks to see when the last true in the column with val is found
                             while(val != 0):
+                                # edge case if i is equal to the last row
+                                if i == 0 and subset[i][val]:
+                                    ans_set.append(vector[i])
+                                    val = val - vector[i]
                                 # decrements the row if the previous column is still true
-                                if subset[i-1][val]:
+                                elif subset[i-1][val]:
                                     i = i-1
                                 else:
                                     # appends the value to the answer set and deducts the appended value from val/sum
                                     ans_set.append(vector[i])
                                     val = val - vector[i]
-                    # catch/except if index is out of bound
+                    # # catch/except if index is out of bound
                     except:
                         continue
 
-    # print_subset(subset, list, sum)
+    # print_subset(subset, vector, val)
 
     return ans_set
 
@@ -104,12 +108,13 @@ def print_subset(subset, list, sum):
         print('\n')
 
 def main():
-    test_set = [[2,3,7,8,10], [3,34,4,12,5,2], [1,2,3,7,8], [100, 200, 300], [1,2,3]]
-    test_sum = [11, 9, 11, 0, 10]
+    test_set = [[2,3,7,8,10], [3,34,4,12,5,2], [1,2,3,7,8], [100, 200, 300], [1,2,3], [1,3,5,7,9], [1,3,5,7,9]]
+    test_sum = [11, 9, 11, 0, 10, 20, 22]
 
     i = 0
     for list in test_set:
         print("List: " + str(list))
+        print("Sum: " + str(test_sum[i]))
         bf_subset = brute_force(list, test_sum[i])
         print("Subset of sum using brute force: " + str(bf_subset))
 
